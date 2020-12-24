@@ -20,7 +20,7 @@ const Home = (props) => {
     const {city} = props.route.params;
     myCity = city;
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${myCity}&APPID=7f3dbac0a05234ec606f10f9c68c189d&units=metric`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${myCity}&APPID=${API_KEY}&units=metric`,
     )
       .then((data) => data.json())
       .then((results) => {
