@@ -6,7 +6,6 @@ const Search = () => {
   const [city, setCity] = useState('');
   const fetchCities = (text) => {
     setCity(text);
-    console.log(text);
   };
 
   return (
