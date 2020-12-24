@@ -11,7 +11,7 @@ const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="#00aaff" />
-      <Text>Hello World!!</Text>
+      <Search />
     </>
   );
 };
