@@ -5,7 +5,7 @@ import Search from './screens/Search';
 import Home from './screens/Home';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 const Tab = createBottomTabNavigator();
 const App = () => {
   return (
@@ -17,19 +17,31 @@ const App = () => {
             tabBarIcon: ({color}) => {
               let iconName;
               if (route.name == 'Home') {
-                iconName = 'home-city-outline'
-              }else if(route.name == 'Search'){
-                iconName = 'city'
+                iconName = 'home-city-outline';
+              } else if (route.name == 'Search'){
+                iconName = 'city';
               }
-              return <MaterialCommunityIcons name={iconName} size={25} color={color}/>
-            }
+              return (
+                <MaterialCommunityIcons
+                  name={iconName}
+                  size={25}
+                  color={color}
+                />
+              );
+            },
           })}
           tabBarOption={{
-            activeTintColor: "white",
-            inactiveTintColor: "gray"
-          }}
-          >
-          <Tab.Screen name="Home" component={Home} />
+            activeTintColor: 'white',
+            inactiveTintColor: 'black',
+            activeBackgroundColor: '#00aaff',
+            inactiveBackgroundColor: '#00aaff',
+
+          }}>
+          <Tab.Screen
+            name="Home"
+            component={Home}
+            initialParams={{city: 'Ranikhet'}}
+          />
           <Tab.Screen name="Search" component={Search} />
         </Tab.Navigator>
       </NavigationContainer>

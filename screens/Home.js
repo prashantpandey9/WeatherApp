@@ -4,7 +4,7 @@ import {Title, Card} from 'react-native-paper';
 import {View, Image} from 'react-native';
 import Header from './Header';
 
-const Home = () => {
+const Home = (props) => {
   const [info, setInfo] = useState({
     name: 'loading',
     temp: 'loading',
@@ -16,26 +16,41 @@ const Home = () => {
     getWeather();
   }, []);
   const getWeather = () => {
+    let myCity;
+    const {city} = props.route.params;
+    myCity = city;
     fetch(
-      'https://api.openweathermap.org/data/2.5/weather?q=london&APPID=7f3dbac0a05234ec606f10f9c68c189d&units=metric',
+      `https://api.openweathermap.org/data/2.5/weather?q=${myCity}&APPID=7f3dbac0a05234ec606f10f9c68c189d&units=metric`,
     )
       .then((data) => data.json())
       .then((results) => {
-        console.log(results);
-        setInfo({
-          name: results.name,
-          temp: results.main.temp,
-          humidity: results.main.humidity,
-          desc: results.weather[0].description,
-          icon: results.weather[0].icon,
-        });
+        if (results.cod == 200) {
+          setInfo({
+            name: results.name,
+            temp: results.main.temp,
+            humidity: results.main.humidity,
+            desc: results.weather[0].description,
+            icon: results.weather[0].icon,
+          });
+        } else if (results.cod == 404) {
+          setInfo({
+            name: results.message,
+            temp: 'loading',
+            humidity: 'loading',
+            desc: 'loading',
+            icon: 'loading',
+          });
+        }
       });
   };
+  if (props.route.params.city != 'Ranikhet') {
+    getWeather();
+  }
 
   return (
     <View style={{flex: 1}}>
       <Header name="Weather App" />
-      <View style={{alignItems:"center"}}>
+      <View style={{alignItems: 'center'}}>
         <Title
           style={{
             color: '#00aaff',
@@ -51,7 +66,7 @@ const Home = () => {
           }}
           source={{
             uri: 'https://openweathermap.org/img/w/' + info.icon + '.png',
-          }} 
+          }}
         />
       </View>
       <Card
@@ -59,14 +74,14 @@ const Home = () => {
           margin: 5,
           padding: 12,
         }}>
-        <Title style={{color: '#00aaff'}}> Temperature = {info.temp}</Title>
+        <Title style={{color: '#00aaff'}}> Temperature = {info.temp}°C</Title>
       </Card>
       <Card
         style={{
           margin: 5,
           padding: 12,
         }}>
-        <Title style={{color: '#00aaff'}}> Humidity = {info.humidity}</Title>
+        <Title style={{color: '#00aaff'}}> Humidity = {info.humidity}%</Title>
       </Card>
       <Card
         style={{

@@ -2,11 +2,14 @@ import React, {useState} from 'react';
 import {TextInput, Button} from 'react-native-paper';
 import {View, Text} from 'react-native';
 import Header from './Header';
-const Search = () => {
+const Search = ({navigation}) => {
   const [city, setCity] = useState('');
   const fetchCities = (text) => {
     setCity(text);
   };
+  const btnClick = ()=>{
+    navigation.navigate('Home', {city:city})
+  }
 
   return (
     <View style={{flex: 1}}>
@@ -21,7 +24,7 @@ const Search = () => {
         mode="contained"
         theme={{colors: {primary: '#00aaff'}}}
         style={{margin: 20}}
-        onPress={() => console.log('Pressed')}>
+        onPress={() => btnClick()}>
         <Text style={{color: 'white'}}>Search</Text>
       </Button>
     </View>
