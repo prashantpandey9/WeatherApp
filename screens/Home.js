@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {Title, Card} from 'react-native-paper';
 import {View, Image} from 'react-native';
 import Header from './Header';
+import {API_KEY} from './Key'
 
 const Home = (props) => {
   const [info, setInfo] = useState({
@@ -16,7 +17,7 @@ const Home = (props) => {
     getWeather();
   }, []);
   const getWeather = () => {
-    let myCity;
+    let myCity; 
     const {city} = props.route.params;
     myCity = city;
     fetch(
@@ -25,6 +26,7 @@ const Home = (props) => {
       .then((data) => data.json())
       .then((results) => {
         if (results.cod == 200) {
+          console.log(results)
           setInfo({
             name: results.name,
             temp: results.main.temp,

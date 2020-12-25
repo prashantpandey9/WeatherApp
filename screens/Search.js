@@ -9,6 +9,7 @@ const Search = ({navigation}) => {
   };
   const btnClick = ()=>{
     navigation.navigate('Home', {city:city})
+    
   }
 
   return (
